@@ -29,13 +29,13 @@ class _PeopleListViewState extends State<PeopleListView>
     super.initState();
     vm = widget.peopleListViewModel;
     vm.addListener(() {
-      if (!vm.isLoading) {
+      if (!vm.isLoading) { // Update the share people list after loading
         Provider.of<PeopleListModel>(context, listen: false)
             .setPeople(vm.people);
       }
       setState(() {});
     });
-    if (vm.people.isEmpty) {
+    if (vm.people.isEmpty) { // If no record, call API
       vm.refresh();
     }
   }
@@ -51,7 +51,7 @@ class _PeopleListViewState extends State<PeopleListView>
   Widget build(BuildContext context) {
     return Scaffold(
       body: vm.isLoading && vm.people.isEmpty
-          ? const LoadingIndicator(
+          ? const LoadingIndicator( // Loading screen
               indicatorType: Indicator.ballClipRotateMultiple,
             )
           : RefreshIndicator(
@@ -76,7 +76,7 @@ class _PeopleListViewState extends State<PeopleListView>
                         ],
                       ),
                     )
-                  : ListView.builder(
+                  : ListView.builder( // List out people
                       shrinkWrap: true,
                       physics: const AlwaysScrollableScrollPhysics(),
                       itemCount: vm.people.length,
