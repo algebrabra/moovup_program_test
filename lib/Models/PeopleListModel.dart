@@ -1,3 +1,5 @@
+//Share model for listing and map page
+
 import 'package:flutter/cupertino.dart';
 import 'package:moovup_program_test/Models/PeopleAPIModel.dart';
 
