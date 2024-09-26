@@ -1,3 +1,5 @@
+// Map view for both map page and detail page
+
 import 'package:flutter/material.dart';
 import 'package:moovup_program_test/Models/PeopleAPIModel.dart';
 import 'package:moovup_program_test/Views/MapView/MapViewModel.dart';
@@ -33,7 +35,7 @@ class _MapViewState extends State<MapView> with AutomaticKeepAliveClientMixin {
     _popupController = PopupController();
   }
 
-  List<PersonMarker> _buildMarkers() {
+  List<PersonMarker> _buildMarkers() { //Function to build all markers
     return vm.people
         .map((person) => PersonMarker(
               person: person,
@@ -51,8 +53,8 @@ class _MapViewState extends State<MapView> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<PeopleListModel>(builder: (context, person, child) { //When PeopleListModel updated, the widget will reload
-        vm.people = widget.person != null
+      body: Consumer<PeopleListModel>(builder: (context, person, child) { // When PeopleListModel updated, the widget will reload
+        vm.people = widget.person != null // Check for data from detail page or map page
             ? [widget.person!]
             : Provider.of<PeopleListModel>(context, listen: false).people;
         return FlutterMap(
