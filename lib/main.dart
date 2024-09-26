@@ -129,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           AppLocalizations.of(context)!.moovup_test_page,
           style: FontGuide.navigationBarTitle,
         ),
-        actions: [IconButton(onPressed: () {
+        actions: [IconButton(onPressed: () { //Change language
           if (MyApp.of(context)!._locale.languageCode == "en") {
             MyApp.of(context)?.setLocale(const Locale('zh', 'Hant'));
           } else {
@@ -140,7 +140,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       body: TabBarView(
           controller: _tabController,
           physics: const NeverScrollableScrollPhysics(),
-          children: <Widget>[
+          children: <Widget>[ //The people list view and map view
             PeopleListView(peopleListViewModel: PeopleListViewModel()),
             MapView(mapViewModel: MapViewModel()),
           ]),
