@@ -1,3 +1,5 @@
+// API model for people list
+
 import 'dart:ffi';
 import '../Common/Services/BaseAPIModel.dart';
 

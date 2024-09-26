@@ -1,3 +1,5 @@
+// All global setting place here
+
 import 'package:flutter/foundation.dart';
 import 'package:latlong2/latlong.dart';
 

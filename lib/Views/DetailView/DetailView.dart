@@ -1,3 +1,5 @@
+//Detail page
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -50,12 +52,12 @@ class _DetailViewState extends State<DetailView> {
       body: Column(
         children: [
           Expanded(
-            child: MapView(
+            child: MapView( //Insert the map view here
               person: vm.person,
               mapViewModel: MapViewModel(),
             ),
           ),
-          PeopleListItem(
+          PeopleListItem( //Information at bottom
               showEmail: true, showArrow: false, userModel: vm.person),
         ],
       ),

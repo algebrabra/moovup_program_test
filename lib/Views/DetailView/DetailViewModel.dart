@@ -1,3 +1,5 @@
+//ViewModel for detail page
+
 import '../../Common/Services/BaseViewModel.dart';
 import '../../Models/PeopleAPIModel.dart';
 

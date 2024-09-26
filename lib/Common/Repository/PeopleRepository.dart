@@ -4,7 +4,7 @@ import '../Services/APIService.dart';
 
 class PeopleRepository {
 
-  Future<PeopleResponseModel> fetchPeople() async {
+  Future<PeopleResponseModel> fetchPeople() async { // Call API
     dynamic json = await APIService.shared.fetchAPI(url: "templates/-xdNcNKYtTFG/data", requestMethod: RequestMethod.get);
     return PeopleResponseModel.fromJson(json);
   }
