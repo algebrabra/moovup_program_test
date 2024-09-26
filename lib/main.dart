@@ -14,7 +14,7 @@ import 'Views/PeopleList/PeopleListViewModel.dart';
 void main() {
   runApp(
     ChangeNotifierProvider(
-      create: (context) => PeopleListModel(),
+      create: (context) => PeopleListModel(), //Create the people list model for sharing by people list and map view
       child: const MyApp(),
     ),
   );
