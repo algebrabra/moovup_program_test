@@ -9,54 +9,72 @@ import 'package:http/http.dart' as http;
 import 'package:moovup_program_test/Common/Config/Environment.dart';
 
 class APIService {
-
   static APIService shared = APIService();
 
   http.Client client = http.Client();
 
-  Future<dynamic> fetchAPI({required String url, required RequestMethod requestMethod, BaseAPIModel? apiModel}) async {
+  Future<dynamic> fetchAPI(
+      {required String url,
+      required RequestMethod requestMethod,
+      BaseAPIModel? apiModel}) async {
     String domain = Environment.getHost();
     String token = Environment.getApiKey();
     String? jsonString = jsonEncode(apiModel?.toJson());
     late final http.Response response;
     switch (requestMethod) {
       case RequestMethod.get:
-        response = await client
-            .get(Uri.parse('$domain$url'),
-        headers: {
-        HttpHeaders.authorizationHeader: "Bearer $token",
-        HttpHeaders.contentTypeHeader: "application/json",
+        response = await client.get(Uri.parse('$domain$url'), headers: {
+          HttpHeaders.authorizationHeader: "Bearer $token",
+          HttpHeaders.contentTypeHeader: "application/json",
+        }).timeout(const Duration(seconds: 30),
+            onTimeout: () => http.Response('timeout', 408)).catchError((error) {
+              return http.Response("Connect fail", 400);
         });
         break;
       case RequestMethod.post:
         response = await client
-            .post(Uri.parse('$domain$url'),
-          headers: {
-            HttpHeaders.authorizationHeader: "Bearer $token",
-            HttpHeaders.contentTypeHeader: "application/json",
-          },
-          body: jsonString,
-        );
+            .post(
+              Uri.parse('$domain$url'),
+              headers: {
+                HttpHeaders.authorizationHeader: "Bearer $token",
+                HttpHeaders.contentTypeHeader: "application/json",
+              },
+              body: jsonString,
+            )
+            .timeout(const Duration(seconds: 30),
+            onTimeout: () => http.Response('timeout', 408)).catchError((error) {
+          return http.Response("Connect fail", 400);
+        });
         break;
       case RequestMethod.put:
         response = await client
-            .put(Uri.parse('$domain$url'),
-          headers: {
-            HttpHeaders.authorizationHeader: "Bearer $token",
-            HttpHeaders.contentTypeHeader: "application/json",
-          },
-          body: jsonString,
-        );
+            .put(
+              Uri.parse('$domain$url'),
+              headers: {
+                HttpHeaders.authorizationHeader: "Bearer $token",
+                HttpHeaders.contentTypeHeader: "application/json",
+              },
+              body: jsonString,
+            )
+            .timeout(const Duration(seconds: 30),
+            onTimeout: () => http.Response('timeout', 408)).catchError((error) {
+          return http.Response("Connect fail", 400);
+        });
         break;
       case RequestMethod.delete:
         response = await client
-            .delete(Uri.parse('$domain$url'),
-          headers: {
-            HttpHeaders.authorizationHeader: "Bearer $token",
-            HttpHeaders.contentTypeHeader: "application/json",
-          },
-          body: jsonString,
-        );
+            .delete(
+              Uri.parse('$domain$url'),
+              headers: {
+                HttpHeaders.authorizationHeader: "Bearer $token",
+                HttpHeaders.contentTypeHeader: "application/json",
+              },
+              body: jsonString,
+            )
+            .timeout(const Duration(seconds: 30),
+            onTimeout: () => http.Response('timeout', 408)).catchError((error) {
+          return http.Response("Connect fail", 400);
+        });
         break;
     }
     if (response.statusCode == 200) {
@@ -65,8 +83,8 @@ class APIService {
       Map<String, dynamic> json = Map<String, dynamic>();
       json['error_code'] = response.statusCode;
       try {
-        Map<String, dynamic> error = jsonDecode(
-            utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
+        Map<String, dynamic> error =
+            jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
         json['error_message'] = error['error'] as String;
       } on FormatException catch (e) {
         json['error_message'] = utf8.decode(response.bodyBytes);
@@ -76,6 +94,4 @@ class APIService {
   }
 }
 
-enum RequestMethod {
-  get, post, put, delete
-}
+enum RequestMethod { get, post, put, delete }

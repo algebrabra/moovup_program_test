@@ -1,6 +1,7 @@
 // People List
 
 import 'package:flutter/material.dart';
+import 'package:moovup_program_test/Common/Config/FontGuide.dart';
 import 'package:moovup_program_test/Views/DetailView/DetailView.dart';
 import 'package:moovup_program_test/Views/DetailView/DetailViewModel.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +10,7 @@ import 'package:moovup_program_test/Models/PeopleListModel.dart';
 import 'package:moovup_program_test/Views/PeopleList/PeopleListViewService.dart';
 import 'package:moovup_program_test/Views/PeopleList/PeopleListViewModel.dart';
 import 'package:moovup_program_test/Common/Widgets/PeopleListItem.dart';
+import 'package:moovup_program_test/Common/Config/FontGuide.dart';
 
 class PeopleListView extends StatefulWidget {
   final PeopleListViewModel peopleListViewModel;
@@ -68,13 +70,13 @@ class _PeopleListViewState extends State<PeopleListView>
                         children: [
                           Text(
                             vm.errorMessage!,
-                            style: const TextStyle(color: Colors.black),
+                            style: FontGuide.standard,
                           ),
                           TextButton(
                               onPressed: () {
                                 vm.refresh();
                               },
-                              child: const Text("Retry")),
+                              child: Text("Retry", style: FontGuide.title,)),
                         ],
                       ),
                     )
